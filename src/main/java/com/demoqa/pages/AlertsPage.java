@@ -1,10 +1,15 @@
 package com.demoqa.pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class AlertsPage extends BasePage {
 
@@ -46,8 +51,14 @@ public class AlertsPage extends BasePage {
 
     public AlertsPage alertAfter5SecondsButton() {
         clickWithJSExecutor(timerAlertButton, 0, 300);
-        pause(5000);
-        driver.switchTo().alert().accept();
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(5));
+        Alert alert=wait.until(ExpectedConditions.alertIsPresent());
+        alert.accept();
+
+        //new WebDriverWait(driver, Duration.ofSeconds(5))
+        //                .until(ExpectedConditions.alertIsPresent()).accept();
+       // pause(5000);
+      //  driver.switchTo().alert().accept();
         return this;
     }
 
@@ -66,6 +77,16 @@ public class AlertsPage extends BasePage {
 
     public AlertsPage assertConfirmMessage(String message) {
         Assert.assertTrue(confirmResult.getText().contains(message));
+        return this;
+    }
+
+    public AlertsPage selectAlertConfirm(String text) {
+        clickWithJSExecutor(confirmButton,0,100);
+        if (text!=null&&text.equals("OK")){
+            driver.switchTo().alert().accept();
+        }else if (text!=null&&text.equals("Cancel")){
+            driver.switchTo().alert().dismiss();
+        }
         return this;
     }
 }

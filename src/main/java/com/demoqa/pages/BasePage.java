@@ -26,6 +26,12 @@ public abstract class BasePage {
             element.clear();
             element.sendKeys(text);
         }
+    }public void typeWithJSExecutor(WebElement element, String text,int x,int y){
+        if (text!=null){
+            clickWithJSExecutor(element,x,y);
+            element.clear();
+            element.sendKeys(text);
+        }
     }
     public void clickWithJSExecutor(WebElement element, int x, int y){
         JavascriptExecutor js=(JavascriptExecutor) driver;
@@ -40,6 +46,14 @@ public abstract class BasePage {
     public void hideAd(){
         JavascriptExecutor js=(JavascriptExecutor) driver;
         js.executeScript("document.getElementById('adplus-anchor').style.display='none';");
+    }
+    public void hideFooter(){
+        JavascriptExecutor js=(JavascriptExecutor) driver;
+        js.executeScript("document.querySelector('footer').style.display='none';");
+    }
+    public void hideIframes(){
+        hideAd();
+        hideFooter();
     }
 
     public void pause(int millis){

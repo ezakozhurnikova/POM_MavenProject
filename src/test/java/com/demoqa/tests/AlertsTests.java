@@ -35,6 +35,7 @@ public class AlertsTests extends TestBase {
 
     @Test
     public void confirmBoxWillAppearTest(){
-        new AlertsPage(driver).confirmBox().assertConfirmMessage("You selected Ok");
+        //new AlertsPage(driver).confirmBox().assertConfirmMessage("You selected Ok");
+        new AlertsPage(driver).selectAlertConfirm("Cancel").assertConfirmMessage("Cancel");
     }
 }
